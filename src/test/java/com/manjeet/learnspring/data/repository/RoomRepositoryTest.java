@@ -8,9 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @DataJpaTest
 public class RoomRepositoryTest {
@@ -24,9 +23,9 @@ public class RoomRepositoryTest {
         Iterable<Room> iterable = roomRepository.findAll();
         iterable.forEach(list::add);
 
-        assertThat(list, notNullValue());
-        assertThat(list.size(), equalTo(6));
-        assertThat(list.get(0).getName(), equalTo("Piccadilly"));
+        assertNotEquals(list, null);
+        assertEquals(list.size(), 6);
+        assertEquals(list.get(0).getName(), "Piccadilly");
     }
 
     @Test
@@ -41,8 +40,8 @@ public class RoomRepositoryTest {
         Iterable<Room> iterable = roomRepository.findAll();
         iterable.forEach(list::add);
 
-        assertThat(list, notNullValue());
-        assertThat(list.size(), equalTo(7));
-        assertThat(list.get(6).getName(), equalTo("Test Room"));
+        assertNotEquals(list, null);
+        assertEquals(list.size(), 7);
+        assertEquals(list.get(6).getName(), "Test Room");
     }
 }
