@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {
@@ -17,8 +20,11 @@ public class RoomController {
     private RoomRepository roomRepository;
 
     @GetMapping
-    public ResponseEntity<Iterable<Room>> getRooms() {
-        return ResponseEntity.ok(this.roomRepository.findAll());
+    public ResponseEntity<List<Room>> getRooms() {
+        Iterable<Room> iterable = this.roomRepository.findAll();
+        List<Room> roomList = new ArrayList<>();
+        iterable.forEach(roomList::add);
+        return ResponseEntity.ok(roomList);
     }
 
     @GetMapping("/{id}")
