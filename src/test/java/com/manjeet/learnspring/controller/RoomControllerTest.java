@@ -48,6 +48,5 @@ class RoomControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().string(containsString("Best Room")))
                 .andReturn().getResponse().getContentAsString();
-        System.out.println(response);
     }
 }
