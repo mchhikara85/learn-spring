@@ -10,7 +10,7 @@ public class Room {
     @Id
     @Column(name = "ROOM_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long roomid;
+    private long roomId;
 
     @Column(name = "NAME")
     private String name;

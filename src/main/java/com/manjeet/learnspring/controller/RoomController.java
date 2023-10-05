@@ -4,11 +4,15 @@ import com.manjeet.learnspring.data.entity.Room;
 import com.manjeet.learnspring.data.repository.RoomRepository;
 import com.manjeet.learnspring.model.GetRoomsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/rooms")
@@ -18,12 +22,13 @@ public class RoomController {
     private RoomRepository roomRepository;
 
     @GetMapping
-    public ResponseEntity<GetRoomsResponse> getRooms() {
-        Iterable<Room> iterable = this.roomRepository.findAll();
-        List<Room> roomList = new ArrayList<>();
-        iterable.forEach(roomList::add);
+    public ResponseEntity<GetRoomsResponse> getRoomsByPage(Pageable pageable) {
         GetRoomsResponse getRoomsResponse = new GetRoomsResponse();
-        getRoomsResponse.setRoomList(roomList);
+        Page<Room> page = roomRepository.findAll(PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                pageable.getSortOr(Sort.by(Sort.Direction.DESC,"roomId"))));
+        getRoomsResponse.setRoomList(page.getContent());
         return ResponseEntity.ok(getRoomsResponse);
     }
 
@@ -33,8 +38,12 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<Room> createRoom(@RequestBody Room room) {
-        roomRepository.save(room);
-        return null;
+    public ResponseEntity<Void> createRoom(@RequestBody Room room, UriComponentsBuilder ucb) {
+        Room savedRoom = roomRepository.save(room);
+        URI uri = ucb
+                .path("/rooms/{id}")
+                .buildAndExpand(savedRoom.getRoomId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
     }
 }
