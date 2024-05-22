@@ -8,5 +8,4 @@ minikube start --driver=docker
 minikube addons list  
 minikube addons enable metrics-server  
 minikube addons enable dashboard  
-minikube addons list  
 minikube dashboard  
