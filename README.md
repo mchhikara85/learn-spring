@@ -1,10 +1,10 @@
 
 
 
--- Installing Minikube for MacOS
+-- Installing Minikube for MacOS  
 minikube start --driver=docker
 
---Accessing minikube dashboard
+--Accessing minikube dashboard  
 minikube addons list
 minikube addons enable metrics-server
 minikube addons enable dashboard
