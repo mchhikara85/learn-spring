@@ -1,5 +1,6 @@
+--Install Docker Desktop  
 
-
+--Install kubectl  
 
 -- Installing Minikube for MacOS  
 minikube start --driver=docker
