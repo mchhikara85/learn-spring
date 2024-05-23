@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-app-deployment
+  labels:
+    app: spring-app-deployment
+  namespace: learning
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-app
+  template:
+    metadata:
+      name: spring-app
+      labels:
+        app: spring-app
+      namespace: learning
+    spec:
+      containers:
+        - image: mchhikara/spring-app
+          imagePullPolicy: Always
+          name: spring-app
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-app-svc
+  labels:
+    app: spring-app-svc
+  namespace: learning
+spec:
+  selector:
+    app: spring-app
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: NodePort
