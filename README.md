@@ -12,7 +12,7 @@ minikube dashboard
 
 --Installing ArgoCD on minikube  
 kubectl create namespace argocd  
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.8.4/manifests/install.yaml  
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl get all -n argocd  
 
 --Accessing ArogoCD in browser  
