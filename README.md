@@ -14,9 +14,9 @@ minikube addons enable dashboard
 minikube dashboard  
 
 --Accessing your API externally  
-Use service type as NodePort which will allow you to access the service with <</Node-IP>>:<<NodePort>>  
+Use service type as NodePort which will allow you to access the service with Node-IP:NodePort  
 If you are using minikube with Docker driver then you have to start the tunnel with following command:  
-minikube service <service-name> -n <<namespace>>  
+minikube service service-name -n namespace  
 
 --Installing ArgoCD on minikube  
 kubectl create namespace argocd  
