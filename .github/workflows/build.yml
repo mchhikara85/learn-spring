@@ -19,7 +19,8 @@ on:
     paths-ignore:
       - '.github/workflows/**'
       - 'deployment/**'
-
+  workflow_dispatch:
+  
 jobs:
   build:
 
