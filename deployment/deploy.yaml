@@ -1,3 +1,42 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: test-cer
+  namespace: learning
+spec:
+  testCertificate.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIFHjCCBMOgAwIBAgIQA0mnZF5EhaZ8USS5e938szAKBggqhkjOPQQDAjBKMQsw
+    CQYDVQQGEwJVUzEZMBcGA1UEChMQQ2xvdWRmbGFyZSwgSW5jLjEgMB4GA1UEAxMX
+    Q2xvdWRmbGFyZSBJbmMgRUNDIENBLTMwHhcNMjQwNTE1MDAwMDAwWhcNMjQxMjMx
+    MjM1OTU5WjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQG
+    A1UEBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQQ2xvdWRmbGFyZSwgSW5jLjEf
+    MB0GA1UEAxMWbW9ydGdhZ2UuYXJjaGdyb3VwLmNvbTBZMBMGByqGSM49AgEGCCqG
+    SM49AwEHA0IABNtun+kfWuFz29szYmYACegNB852M37vvT7A69UDGs0BiFogeIAJ
+    BilgcoJIKeRSnTs/fFGPnA3MbSI5OW2Q+d6jggNdMIIDWTAfBgNVHSMEGDAWgBSl
+    zjfq67B1DpRniLRF+tkkEIeWHzAdBgNVHQ4EFgQUA3ld/7j2kKmd3u1iAAT4ZrrJ
+    X6IwIQYDVR0RBBowGIIWbW9ydGdhZ2UuYXJjaGdyb3VwLmNvbTA+BgNVHSAENzA1
+    MDMGBmeBDAECAjApMCcGCCsGAQUFBwIBFhtodHRwOi8vd3d3LmRpZ2ljZXJ0LmNv
+    bS9DUFMwDgYDVR0PAQH/BAQDAgOIMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEF
+    BQcDAjB7BgNVHR8EdDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20v
+    Q2xvdWRmbGFyZUluY0VDQ0NBLTMuY3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdp
+    Y2VydC5jb20vQ2xvdWRmbGFyZUluY0VDQ0NBLTMuY3JsMHYGCCsGAQUFBwEBBGow
+    aDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEAGCCsGAQUF
+    BzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vQ2xvdWRmbGFyZUluY0VD
+    Q0NBLTMuY3J0MAwGA1UdEwEB/wQCMAAwggGABgorBgEEAdZ5AgQCBIIBcASCAWwB
+    agB3AHb/iD8KtvuVUcJhzPWHujS0pM27KdxoQgqf5mdMWjp0AAABj3mymXcAAAQD
+    AEgwRgIhANtpy5FIZAMAfeeFAWcbje87kDm/MEvCWLJQtrGHMO7TAiEA9PziU1Uv
+    YXgz/KcdM6qICKlvGIaJ13/5/2o9RjNC2+4AdgDatr9rP7W2Ip+bwrtca+hwkXFs
+    u1GEhTS9pD0wSNf7qwAAAY95spkMAAAEAwBHMEUCID3R5uwcVcykZNWY+AGKl9kH
+    HfQlQwtUZaLzr0kvNkpaAiEA3BIrxRfoUEUP/NXscPYS5ETlONmlo80FmqRBPJVq
+    1HIAdwA/F0tP1yJHWJQdZRyEvg0S7ZA3fx+FauvBvyiF7PhkbgAAAY95spk5AAAE
+    AwBIMEYCIQDwWtWgnjzDUvDPLVCepCcypiGlsfYDL4e+5eVD2zYEzwIhAL7AkmYJ
+    Ud2qbFeY4S3YENDuMfSXAPGW6pODL7QtGEy/MAoGCCqGSM49BAMCA0kAMEYCIQCp
+    jh2imptoNVAnz2fl7R/PcyuCBl1vmZ2gn9XuiRpvvQIhAKZwi7yJmh3wNzVlrhC2
+    5dmWfUZU4Ho6Dk3Qq7nuPBlu
+    -----END CERTIFICATE-----
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,9 +63,16 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
-          resources: {}
+          volumeMounts:
+            - name: cert-vol
+              mountPath: config/secret
+              readOnly: true
       dnsPolicy: ClusterFirst
       restartPolicy: Always
+      volumes:
+        - name: cert-vol
+          secret:
+            secretName: test-cer
 ---
 apiVersion: v1
 kind: Service
