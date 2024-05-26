@@ -4,7 +4,7 @@ metadata:
   name: test-cer
   namespace: learning
 data:
-  testCertificate.crt: |
+  testCertificate: |
     MIIFHjCCBMOgAwIBAgIQA0mnZF5EhaZ8USS5e938szAKBggqhkjOPQQDAjBKMQsw
     CQYDVQQGEwJVUzEZMBcGA1UEChMQQ2xvdWRmbGFyZSwgSW5jLjEgMB4GA1UEAxMX
     Q2xvdWRmbGFyZSBJbmMgRUNDIENBLTMwHhcNMjQwNTE1MDAwMDAwWhcNMjQxMjMx
@@ -70,6 +70,7 @@ spec:
         - name: cert-vol
           secret:
             secretName: test-cer
+            path: testCertificate.crt
 ---
 apiVersion: v1
 kind: Service
