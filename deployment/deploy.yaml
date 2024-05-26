@@ -62,7 +62,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: cert-vol
-              mountPath: config/secret
+              mountPath: config/secret/
               readOnly: true
       dnsPolicy: ClusterFirst
       restartPolicy: Always
