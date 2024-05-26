@@ -5,7 +5,6 @@ metadata:
   namespace: learning
 data:
   testCertificate.crt: |
-    -----BEGIN CERTIFICATE-----
     MIIFHjCCBMOgAwIBAgIQA0mnZF5EhaZ8USS5e938szAKBggqhkjOPQQDAjBKMQsw
     CQYDVQQGEwJVUzEZMBcGA1UEChMQQ2xvdWRmbGFyZSwgSW5jLjEgMB4GA1UEAxMX
     Q2xvdWRmbGFyZSBJbmMgRUNDIENBLTMwHhcNMjQwNTE1MDAwMDAwWhcNMjQxMjMx
@@ -34,8 +33,6 @@ data:
     Ud2qbFeY4S3YENDuMfSXAPGW6pODL7QtGEy/MAoGCCqGSM49BAMCA0kAMEYCIQCp
     jh2imptoNVAnz2fl7R/PcyuCBl1vmZ2gn9XuiRpvvQIhAKZwi7yJmh3wNzVlrhC2
     5dmWfUZU4Ho6Dk3Qq7nuPBlu
-    -----END CERTIFICATE-----
-
 ---
 apiVersion: apps/v1
 kind: Deployment
