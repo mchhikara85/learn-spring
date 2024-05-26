@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: test-cer
   namespace: learning
-spec:
+data:
   testCertificate.crt: |
     -----BEGIN CERTIFICATE-----
     MIIFHjCCBMOgAwIBAgIQA0mnZF5EhaZ8USS5e938szAKBggqhkjOPQQDAjBKMQsw
