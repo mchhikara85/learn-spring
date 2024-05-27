@@ -13,5 +13,5 @@ spec:
                 name: spring-app-svc
                 port:
                   number: 5001
-            path: /
-            pathType: ImplementationSpecific
+            path: /learn-spring
+            pathType: Prefix
