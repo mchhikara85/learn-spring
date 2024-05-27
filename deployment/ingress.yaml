@@ -11,3 +11,5 @@ spec:
           - backend:
               serviceName: spring-app-svc
               servicePort: 5001
+            path: /
+            pathType: ImplementationSpecific
