@@ -5,7 +5,7 @@ metadata:
   namespace: learning
 spec:
   rules:
-    - host: springapp.com
+    - host: springtestapp.com
       http:
         paths:
           - backend:
