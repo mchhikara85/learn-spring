@@ -10,7 +10,7 @@ minikube addons list
 minikube addons enable metrics-server  
 minikube addons enable dashboard  
 
---Accessing minikube dashboard
+--Accessing minikube dashboard  
 minikube dashboard  
 
 --Accessing your API externally  
