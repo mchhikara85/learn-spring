@@ -1,9 +1,17 @@
 --Install Docker Desktop  
 
---Install kubectl  
-
 -- Installing Minikube for MacOS  
-minikube start --driver=docker
+brew install minikube  
+
+--start with docker  
+minikube start --driver=docker  
+
+--start with qemu  
+brew install qemu  
+brew install socket_vmnet  
+brew tap homebrew/services  
+HOMEBREW=$(which brew) && sudo ${HOMEBREW} services start socket_vmnet  
+minikube start --driver=qemu --network=socket_vmnet
 
 --Enable minikube addons  
 minikube addons list  
