@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: spring-app-ingress
+  namespace: learning
+spec:
+  rules:
+    - host: myfirstapp.com
+      http:
+        paths:
+          - backend:
+              serviceName: spring-app-svc
+              servicePort: 5001
