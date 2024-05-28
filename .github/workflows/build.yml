@@ -45,6 +45,8 @@ jobs:
           image: mchhikara/spring-app
           tags: latest
           registry: docker.io
+          multiPlatform: true
+          platform: linux/amd64,linux/arm64
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
