@@ -20,13 +20,20 @@ on:
       - '.github/workflows/**'
       - 'deployment/**'
   workflow_dispatch:
-  
+    inputs:
+      repo-url:
+        required: true
+        type: string
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
     steps:
+      - name: test variables
+        shell: bash
+        run: echo '${{basename inputs.repo-url}}'
       - name: Print Github context
         run: echo '${{ toJSON(github.event) }}'
         shell: bash
