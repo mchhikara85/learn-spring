@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: test variables
         shell: bash
-        run: echo '${{basename inputs.repo-url}}'
+        run: echo basename ${{inputs.repo-url}}
       - name: Print Github context
         run: echo '${{ toJSON(github.event) }}'
         shell: bash
