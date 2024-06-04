@@ -35,9 +35,7 @@ jobs:
         shell: bash
         run: |
           echo $(basename ${{inputs.repo-url}})
-          echo $(basename ${{inputs.repo-url}}%-repo*)
-          test = $(basename ${{inputs.repo-url}})
-          echo ${test}          
+          echo ${${{inputs.repo-url}}%-repo*}      
       - name: Print Github context
         run: echo '${{ toJSON(github.event) }}'
         shell: bash
