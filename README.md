@@ -30,6 +30,8 @@ minikube service service-name -n namespace
 --Installing ArgoCD on minikube  
 kubectl create namespace argocd  
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml  
+kubectl create namespace argo-rollouts  
+kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml  
 kubectl get all -n argocd  
 
 --Accessing ArogoCD in browser  
