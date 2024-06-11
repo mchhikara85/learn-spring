@@ -4,7 +4,7 @@ metadata:
   name: spring-app-svc
   labels:
     app: spring-app-svc
-  namespace: learning
+  namespace: learning-dev
 spec:
   selector:
     app: spring-app
