@@ -26,6 +26,8 @@ minikube dashboard
 Use service type as NodePort which will allow you to access the service with Node-IP:NodePort  
 If you are using minikube with Docker driver then you have to start the tunnel with following command:  
 minikube service service-name -n namespace  
+If you are accessing using Ingress then you need to update host configuration on our workstation to the Minikube IP for those URLs:
+sudo vim /etc‌‌/‌hosts
 
 --Installing ArgoCD on minikube  
 kubectl create namespace argocd  
