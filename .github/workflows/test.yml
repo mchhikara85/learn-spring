@@ -3,7 +3,7 @@ name: test workflow
 on:
   workflow_dispatch:
     inputs:
-      - name:
+      name:
         type: string
         required: true
         description: your name
@@ -12,7 +12,7 @@ jobs:
   learn-script:
     runs-on: ubuntu-latest
     outputs:
-      - out-name: ${{steps.first.outputs.my-name}}
+      out-name: ${{steps.first.outputs.my-name}}
     steps:
       - name: learn step 1
         id: first
