@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        type: string
+        type: choice
         required: true
         description: your name
+        options:
+          - Abhimanyu
+          - Manjeet
 
 jobs:
   learn-script:
