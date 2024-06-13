@@ -4,12 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        type: choice
+        type: string
         required: true
         description: your name
-        options:
-          - Abhimanyu
-          - Manjeet
 
 jobs:
   learn-script:
@@ -20,13 +17,6 @@ jobs:
       - name: learn step 1
         id: first
         run: | 
-          testVar=testing
-          echo '$testVar'
-          echo "$testVar"
-          echo $testVar
-          echo '${{inputs.name}}'
-          echo "${{inputs.name}}"
-          echo ${{inputs.name}}
           echo my-name=${{inputs.name}} >> $GITHUB_OUTPUT
         shell: bash
       - name: learn step 2
