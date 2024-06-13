@@ -21,7 +21,7 @@ jobs:
         id: first
         run: | 
           testVar=testing
-          echo '${{testVar}}'
+          echo '$testVar'
           echo "$testVar"
           echo $testVar
           echo '${{inputs.name}}'
