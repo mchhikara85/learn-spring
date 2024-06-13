@@ -16,12 +16,12 @@ jobs:
     steps:
       - name: learn step 1
         id: first
-        run: echo "my-name=${{inputs.name}}" >> $GITHUB_OUTPUT
-        shell: sh
+        run: echo my-name=${{inputs.name}} >> $GITHUB_OUTPUT
+        shell: bash
       - name: learn step 2
         id: second
-        run: echo '${{steps.first.outputs.my-name}}'
-        shell: sh
+        run: echo ${{steps.first.outputs.my-name}}
+        shell: bash
         
   print-output:
     runs-on: ubuntu-latest
@@ -29,5 +29,5 @@ jobs:
     steps:
       - name: print step 1
         id: print
-        run: echo "${{needs.learn-script.outputs.out-name}}"
-        shell: sh
+        run: echo ${{needs.learn-script.outputs.out-name}}
+        shell: bash
