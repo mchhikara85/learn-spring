@@ -20,7 +20,7 @@ jobs:
         shell: bash
       - name: learn step 2
         id: second
-        run: echo ${{steps.first.outputs.my-name}}
+        run: echo '${{steps.first.outputs.my-name}}'
         shell: bash
         
   print-output:
@@ -29,5 +29,5 @@ jobs:
     steps:
       - name: print step 1
         id: print
-        run: echo ${{needs.learn-script.outputs.out-name}}
+        run: echo "${{needs.learn-script.outputs.out-name}}"
         shell: bash
