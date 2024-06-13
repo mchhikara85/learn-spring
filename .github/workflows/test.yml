@@ -1,0 +1,33 @@
+name: test workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      - name:
+        type: string
+        required: true
+        description: your name
+
+jobs:
+  learn-script:
+    runs-on: ubuntu-latest
+    outputs:
+      - out-name: ${{steps.first.outputs.my-name}}
+    steps:
+      - name: learn step 1
+        id: first
+        run: echo "my-name={{inputs.name}}" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: learn step 2
+        id: second
+        run: echo ${{steps.first.outputs.my-name}}
+        shell: bash
+        
+  print-output:
+    runs-on: ubuntu-latest
+    needs: learn-script
+    steps:
+      - name: print step 1
+        id: print
+        run: echo ${{needs.learn-script.outputs.out-name}}
+        shell: bash
