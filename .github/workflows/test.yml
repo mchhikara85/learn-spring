@@ -16,14 +16,14 @@ jobs:
     steps:
       - name: learn step 1
         id: first
-        run: | 
-          echo my-name=${{inputs.name}} >> $GITHUB_OUTPUT
+        run: |
           testVar=testing
           echo $testVar
           echo '$testVar'
           echo "$testVar"
           echo '${{testVar}}'
           echo "${{testVar}}"
+          echo my-name=${{inputs.name}} >> $GITHUB_OUTPUT
         shell: bash
       - name: learn step 2
         id: second
