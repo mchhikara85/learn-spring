@@ -17,7 +17,7 @@ jobs:
       - name: learn step 1
         id: first
         run: |
-          testVar=testing
+          testVar='testing'
           echo $testVar
           echo '$testVar'
           echo "$testVar"
