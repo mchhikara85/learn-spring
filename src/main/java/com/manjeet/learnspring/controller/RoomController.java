@@ -27,7 +27,7 @@ public class RoomController {
         Page<Room> page = roomRepository.findAll(PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
-                pageable.getSortOr(Sort.by(Sort.Direction.DESC,"roomId"))));
+                pageable.getSortOr(Sort.by(Sort.Direction.DESC, "roomId"))));
         getRoomsResponse.setRoomList(page.getContent());
         return ResponseEntity.ok(getRoomsResponse);
     }
@@ -45,5 +45,18 @@ public class RoomController {
                 .buildAndExpand(savedRoom.getRoomId())
                 .toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Room> updateRoom(@PathVariable("id") long roomId, @RequestBody Room room) {
+        return roomRepository.findById(roomId)
+                .map(existingRoom -> {
+                    existingRoom.setName(room.getName());
+                    existingRoom.setNumber(room.getNumber());
+                    existingRoom.setBedInfo(room.getBedInfo());
+                    Room updatedRoom = roomRepository.save(existingRoom);
+                    return ResponseEntity.ok(updatedRoom);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }

@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(RoomController.class)
@@ -73,10 +74,56 @@ class RoomControllerTest {
         doReturn(savedRoom).when(roomRepository).save(any(Room.class));
 
         String response = mockmvc.perform(post("/rooms")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(room)))
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(room)))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", containsString("/rooms/501")))
                 .andReturn().getResponse().getHeader("Location");
+    }
+
+    @Test
+    void testUpdateRoom() throws Exception {
+        Room existingRoom = new Room();
+        existingRoom.setRoomId(1);
+        existingRoom.setName("Old Room Name");
+        existingRoom.setNumber("100");
+        existingRoom.setBedInfo("Twin Bed");
+
+        Room updatedRoom = new Room();
+        updatedRoom.setRoomId(1);
+        updatedRoom.setName("Updated Room Name");
+        updatedRoom.setNumber("101");
+        updatedRoom.setBedInfo("King Bed");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        doReturn(java.util.Optional.of(existingRoom)).when(roomRepository).findById(1L);
+        doReturn(updatedRoom).when(roomRepository).save(any(Room.class));
+
+        String response = mockmvc.perform(put("/rooms/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(updatedRoom)))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Updated Room Name")))
+                .andExpect(content().string(containsString("101")))
+                .andExpect(content().string(containsString("King Bed")))
+                .andReturn().getResponse().getContentAsString();
+    }
+
+    @Test
+    void testUpdateNonExistentRoom() throws Exception {
+        Room updatedRoom = new Room();
+        updatedRoom.setName("Updated Room Name");
+        updatedRoom.setNumber("101");
+        updatedRoom.setBedInfo("King Bed");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        doReturn(java.util.Optional.empty()).when(roomRepository).findById(999L);
+
+        mockmvc.perform(put("/rooms/999")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(updatedRoom)))
+                .andExpect(status().isNotFound());
     }
 }
