@@ -24,6 +24,12 @@ When working on any Jira story, follow these steps:
 
 4. **Implement the Feature**
    - Write clean, maintainable code that follows the existing patterns in the codebase.
+   - **Code Quality Standards:**
+     - Follow existing code patterns and conventions
+     - Keep methods focused and single-purpose
+     - Use meaningful variable and method names
+     - Add comments for complex logic
+     - Ensure proper error handling
 
 5. **Create Unit Tests**
    - **All code changes must include unit tests.**
@@ -31,6 +37,11 @@ When working on any Jira story, follow these steps:
    - Follow the existing test patterns in the codebase.
    - Mock dependencies appropriately.
    - **Test locations:** Place tests in the standard test directory for the language/framework (e.g., `src/test/java/...` for Java, `tests/` for Python).
+   - **Testing Standards:**
+     - Minimum code coverage: Aim for high coverage of new code
+     - Test both happy path, edge cases and error scenarios
+     - Use descriptive test method names
+     - Keep tests independent and isolated
 
 6. **Run All Tests**
    - Before committing, ensure all tests pass.
@@ -68,14 +79,3 @@ When working on any Jira story, follow these steps:
      - List of specific modifications
      - Test results
      - Reference to the Jira story (e.g., "Closes <issue-key>")
-   - **Code Quality Standards:**
-     - Follow existing code patterns and conventions
-     - Keep methods focused and single-purpose
-     - Use meaningful variable and method names
-     - Add comments for complex logic
-     - Ensure proper error handling
-   - **Testing Standards:**
-     - Minimum code coverage: Aim for high coverage of new code
-     - Test both happy path, edge cases and error scenarios
-     - Use descriptive test method names
-     - Keep tests independent and isolated
