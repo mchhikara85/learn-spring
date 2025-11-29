@@ -34,7 +34,7 @@ When working on any Jira story, follow these steps:
 
 6. **Run All Tests**
    - Before committing, ensure all tests pass.
-   - Command: Run the project's test command (e.g., `mvn test`, `./gradlew test`, `npm test`, `pytest`).
+   - Command: `mvn test` (Spring Boot) or `npm test` (Angular/JavaScript)
    - **Requirements:**
      - All existing tests must continue to pass (no regression).
      - All new tests must pass.
