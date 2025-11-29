@@ -17,12 +17,10 @@ When working on any Jira story, follow these steps:
      - Change the issue status to "In Progress" using `mcp0_jira_update_status`.
 
 3. **Create a Feature Branch**
-   - Always create a new branch for your changes. Use a descriptive branch name that includes the Jira ticket number.
-   - Command: `git checkout -b feature/<issue-key>-<brief-description>`
-   - **Branch naming conventions:**
-     - Feature: `feature/<issue-key>-<description>`
-     - Bug fix: `bugfix/<issue-key>-<description>`
-     - Hotfix: `hotfix/<issue-key>-<description>`
+   - Always create a new branch for your changes.
+   - **Branch naming convention:** `feature/<issue-key>-<long-timestamp>`
+   - Use a long timestamp (e.g., Unix timestamp or YYYYMMDDHHMMSS) to ensure uniqueness.
+   - Command: `git checkout -b feature/<issue-key>-<timestamp>`
 
 4. **Implement the Feature**
    - Write clean, maintainable code that follows the existing patterns in the codebase.
