@@ -6,7 +6,13 @@ Thank you for contributing to this project! This document outlines the standard 
 
 When working on any Jira story, follow these steps:
 
-### 1. Create a Feature Branch
+### 1. Jira Workflow
+
+Before starting any work:
+1.  **Assign the Jira story to yourself.**
+2.  **Move the status to "In Progress".**
+
+### 2. Create a Feature Branch
 
 Always create a new branch for your changes. Use a descriptive branch name that includes the Jira ticket number:
 
@@ -19,11 +25,11 @@ git checkout -b feature/SCRUM-XXX-brief-description
 - Bug fix: `bugfix/SCRUM-XXX-description`
 - Hotfix: `hotfix/SCRUM-XXX-description`
 
-### 2. Implement the Feature
+### 3. Implement the Feature
 
 Write clean, maintainable code that follows the existing patterns in the codebase.
 
-### 3. Create Unit Tests
+### 4. Create Unit Tests
 
 **All code changes must include JUnit unit tests.**
 
@@ -37,7 +43,7 @@ Write clean, maintainable code that follows the existing patterns in the codebas
 - Controller tests: `src/test/java/com/manjeet/learnspring/controller/`
 - Repository tests: `src/test/java/com/manjeet/learnspring/data/repository/`
 
-### 4. Run All Tests
+### 5. Run All Tests
 
 Before committing, ensure all tests pass:
 
@@ -50,7 +56,7 @@ Before committing, ensure all tests pass:
 - All new tests must pass
 - Zero test failures or errors
 
-### 5. Commit Your Changes
+### 6. Commit Your Changes
 
 Write clear, descriptive commit messages:
 
@@ -69,13 +75,13 @@ git commit -m "feat(SCRUM-XXX): Brief description of changes
 - `test(SCRUM-XXX):` for test-only changes
 - `refactor(SCRUM-XXX):` for refactoring
 
-### 6. Push Your Branch
+### 7. Push Your Branch
 
 ```bash
 git push -u origin feature/SCRUM-XXX-description
 ```
 
-### 7. Create a Pull Request
+### 8. Create a Pull Request
 
 Create a pull request against the `main` branch with:
 
@@ -108,6 +114,11 @@ Brief description of what this PR accomplishes.
 ## Related Issue
 Closes SCRUM-XXX
 ```
+
+### 9. Complete the Story
+
+Once your Pull Request is merged:
+1.  **Add label "Promoted to QA" to the Jira story.**
 
 ## Code Quality Standards
 
