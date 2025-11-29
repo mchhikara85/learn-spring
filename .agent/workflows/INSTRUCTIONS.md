@@ -4,7 +4,9 @@ description: Implement a Jira story following a standard development workflow
 
 # Development Workflow
 
-When working on any Jira story, follow these steps:
+**IMPORTANT:** Steps 1 and 2 (Jira interactions) are **ONLY** required when the user explicitly asks to "Implement story XXX" or similar. If the request is not related to a specific Jira story implementation, **SKIP** steps 1 and 2 and proceed to the relevant technical steps (e.g., Step 3).
+
+When working on a Jira story implementation, follow these steps:
 
 1. **Get Jira Story Details**
    - Use `mcp0_jira_get_issue` to retrieve the story details if not already known.
