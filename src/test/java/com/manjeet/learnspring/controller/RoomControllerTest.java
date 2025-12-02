@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(RoomController.class)
@@ -73,10 +74,41 @@ class RoomControllerTest {
         doReturn(savedRoom).when(roomRepository).save(any(Room.class));
 
         String response = mockmvc.perform(post("/rooms")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(room)))
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(room)))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", containsString("/rooms/501")))
                 .andReturn().getResponse().getHeader("Location");
+    }
+
+    @Test
+    void testUpdateRoom() throws Exception {
+        Room room = new Room();
+        room.setName("Updated Room");
+        room.setNumber("Updated Number");
+        room.setBedInfo("Updated Bed");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        doReturn(true).when(roomRepository).existsById(1L);
+        doReturn(room).when(roomRepository).save(any(Room.class));
+
+        mockmvc.perform(put("/rooms/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(room)))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void testUpdateRoomNotFound() throws Exception {
+        Room room = new Room();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        doReturn(false).when(roomRepository).existsById(1L);
+
+        mockmvc.perform(put("/rooms/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(room)))
+                .andExpect(status().isNotFound());
     }
 }
