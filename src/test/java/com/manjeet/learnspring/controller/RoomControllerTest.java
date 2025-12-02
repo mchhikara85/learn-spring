@@ -73,10 +73,46 @@ class RoomControllerTest {
         doReturn(savedRoom).when(roomRepository).save(any(Room.class));
 
         String response = mockmvc.perform(post("/rooms")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(room)))
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(room)))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", containsString("/rooms/501")))
                 .andReturn().getResponse().getHeader("Location");
+    }
+
+    @Test
+    void testUpdateRoom() throws Exception {
+        Room room = new Room();
+        room.setRoomId(1);
+        room.setName("Updated Room");
+        room.setNumber("Updated Number");
+        room.setBedInfo("Updated Bed");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        doReturn(java.util.Optional.of(room)).when(roomRepository).findById(1L);
+        doReturn(room).when(roomRepository).save(any(Room.class));
+
+        mockmvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put("/rooms/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(room)))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Updated Room")));
+    }
+
+    @Test
+    void testUpdateRoomNotFound() throws Exception {
+        Room room = new Room();
+        room.setRoomId(1);
+        room.setName("Updated Room");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        doReturn(java.util.Optional.empty()).when(roomRepository).findById(1L);
+
+        mockmvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put("/rooms/1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(room)))
+                .andExpect(status().isNotFound());
     }
 }
