@@ -29,27 +29,53 @@ When working on a Jira story implementation, follow these steps:
 4. **Implement the Feature**
    - Write clean, maintainable code that follows the existing patterns in the codebase.
    - **Code Quality Standards:**
-     - Follow existing code patterns and conventions
-     - Keep methods focused and single-purpose
-     - Use meaningful variable and method names
-     - Add comments for complex logic
-     - Ensure proper error handling
+     - **General:**
+       - Follow existing code structure, patterns, and conventions.
+       - Follow SOLID principles and recommended design patterns.
+       - Use meaningful variable, method, and class names.
+       - Add comments for complex logic (explain *why*, not just *what*).
+       - Ensure proper error handling (no empty catch blocks).
+     - **Java / Spring Boot Specifics:**
+       - **Dependency Injection:** Use Constructor Injection over Field Injection (`@Autowired` on fields).
+       - **DTOs:** Use DTOs for API requests/responses; do not expose Entities directly.
+       - **Logging:** Use SLF4J/Lombok `@Slf4j` for logging. Avoid `System.out.println`.
+       - **Exceptions:** Use Global Exception Handling (`@ControllerAdvice`) for consistent API errors.
+       - **Streams:** Use Java Streams API for collection processing where readable.
+     - **JavaScript / Angular Specifics:**
+       - **Variables:** Use `const` by default, `let` only when reassignment is needed. Avoid `var`.
+       - **Typing:** Use strict TypeScript typing. Avoid `any` whenever possible.
+       - **Async:** Use `async/await` for cleaner asynchronous code over raw Promises.
+       - **RxJS:** Manage subscriptions properly (use `async` pipe or `takeUntil/destroyRef`) to avoid memory leaks.
+       - **Structure:** Keep Components focused on view logic; move business logic to Services.
 
 5. **Create Unit Tests**
-   - **All code changes must include unit tests.**
-   - Write comprehensive test cases covering both success and error scenarios.
-   - Follow the existing test patterns in the codebase.
-   - Mock dependencies appropriately.
-   - **Test locations:** Place tests in the standard test directory for the language/framework (e.g., `src/test/java/...` for Java, `tests/` for Python).
    - **Testing Standards:**
-     - Minimum code coverage: Aim for high coverage of new code
-     - Test both happy path, edge cases and error scenarios
-     - Use descriptive test method names
-     - Keep tests independent and isolated
+     - **General:**
+       - **All code changes must include unit tests.**
+       - Aim for high code coverage (90%+).
+       - Test happy paths, edge cases, and error scenarios.
+       - Keep tests independent and isolated (no shared state).
+       - Use descriptive test method names.
+     - **Java / Spring Boot Specifics:**
+       - **Frameworks:** Use **JUnit 5** and **Mockito**.
+       - **Assertions:** Use **AssertJ** for fluent assertions (`assertThat(...)`).
+       - **Controllers:** Use `@WebMvcTest` with `MockMvc` for slice testing.
+       - **Services:** Use `@ExtendWith(MockitoExtension.class)` for pure unit tests.
+       - **Repositories:** Use `@DataJpaTest` for integration-style DB tests.
+     - **JavaScript / Angular Specifics:**
+       - **Frameworks:** Use **Jasmine** & **Karma** (standard) or **Jest**.
+       - **Setup:** Use `TestBed` for configuring testing modules.
+       - **Components:** Test component creation (`toBeTruthy()`) and DOM interactions.
+       - **Mocks:** Mock child components and services using `jasmine.createSpyObj`.
 
 6. **Run All Tests**
    - Before committing, ensure all tests pass.
-   - Command: `mvn test` (Spring Boot) or `npm test` (Angular/JavaScript)
+   - **Java / Spring Boot:**
+     - Command: `mvn test` or `./mvnw test`.
+     - Verify no build failures.
+   - **JavaScript / Angular:**
+     - Command: `ng test --watch=false --browsers=ChromeHeadless` (for CI/one-off run).
+     - Ensure all specs pass.
    - **Requirements:**
      - All existing tests must continue to pass (no regression).
      - All new tests must pass.
