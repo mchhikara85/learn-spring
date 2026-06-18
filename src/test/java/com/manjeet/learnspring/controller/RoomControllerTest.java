@@ -79,4 +79,35 @@ class RoomControllerTest {
                 .andExpect(header().string("Location", containsString("/rooms/501")))
                 .andReturn().getResponse().getHeader("Location");
     }
+
+    @Test
+    void testUpdateRoom() throws Exception {
+        Room existing = new Room();
+        existing.setRoomId(10);
+        existing.setName("Old Name");
+        existing.setNumber("Old Number");
+        existing.setBedInfo("Old Bed");
+
+        Room update = new Room();
+        update.setName("New Name");
+        update.setNumber("New Number");
+        update.setBedInfo("New Bed");
+
+        Room saved = new Room();
+        saved.setRoomId(10);
+        saved.setName("New Name");
+        saved.setNumber("New Number");
+        saved.setBedInfo("New Bed");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        doReturn(java.util.Optional.of(existing)).when(roomRepository).findById(10L);
+        doReturn(saved).when(roomRepository).save(any(Room.class));
+
+        mockmvc.perform(post("/rooms/10/update")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(update)))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("New Name")));
+    }
 }

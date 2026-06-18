@@ -46,4 +46,17 @@ public class RoomController {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PostMapping("/{id}/update")
+    public ResponseEntity<Room> updateRoom(@PathVariable("id") long roomId, @RequestBody Room room) {
+        return roomRepository.findById(roomId)
+                .map(existing -> {
+                    existing.setName(room.getName());
+                    existing.setNumber(room.getNumber());
+                    existing.setBedInfo(room.getBedInfo());
+                    Room updated = roomRepository.save(existing);
+                    return ResponseEntity.ok(updated);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
